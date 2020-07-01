@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:fragment="head">
+<meta charset="UTF-8">
+<title>Editar Bono Corporativo</title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="title" content="Bonos Provid" />
+<meta name="description"
+	content="Bonos Provid es una plataforma en la que empresas de sector privado o entidades financieras podrán 
+	generar bonos corporativos, así como también revisar el precio actual e indicadores de rentabilidad de estos." />
+<meta name="author" content="Bonos provid">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}" />
+</head>
+<body>
+
+	<header th:replace="layout :: header"></header>
+
+	<div class="container">
+		<form th:action="@{/bonos/save}" method="post" th:object="${bono}">
+			<div class="card">
+				<div class="card-header text-white text-center bg-dark">Editar
+					Bono Corporativo</div>
+				<div class="card-body">
+					<br>
+					<div class="form-group row justify-content-center">
+						<label for="metodo" class="col-sm-2 col-form-label">M&eacute;todo
+							de pago:</label>
+						<div class="col-sm-3">
+							<select class="custom-select" th:field="*{metodo}"
+								disabled="disabled">
+								<option value="1">Americano</option>
+								<option value="2">Alem&aacute;n</option>
+								<option value="3">Franc&eacute;s</option>
+							</select>
+						</div>
+
+						<label for="moneda" class="col-sm-2 col-form-label">Moneda:</label>
+						<div class="col-sm-3">
+							<select class="custom-select" th:field="*{moneda}"
+								disabled="disabled">
+								<option value="1">Nuevos Soles</option>
+								<option value="2">D&oacute;lares Americanos</option>
+								<option value="3">Euros</option>
+							</select>
+						</div>
+					</div>
+					<br>
+					<!-- primera linea -->
+					<div class="form-group row justify-content-center">
+						<label for="vNominal" class="col-sm-2 col-form-label">Valor
+							Nominal:</label>
+						<div class="col-sm-3">
+							<input type="number" th:field="*{vNominal}" class="form-control"
+								disabled="disabled" placeholder="ej: 1000" step=".01"
+								required="required" min="0" />
+						</div>
+
+						<label for="name" class="col-sm-2 col-form-label">Valor
+							Comercial:</label>
+						<div class="col-sm-3">
+							<input type="number" th:field="*{vComercial}"
+								class="form-control" placeholder="ej: 1050" step=".01" min="0"
+								disabled="disabled" required="required" />
+						</div>
+					</div>
+					<br>
+					<!-- segunda linea -->
+					<div class="form-group row justify-content-center">
+						<label for="nAnio" class="col-sm-2 col-form-label">N&uacute;mero
+							de a&ntilde;os:</label>
+						<div class="col-sm-3">
+							<input type="number" th:field="*{nAnio}" class="form-control"
+								disabled="disabled" placeholder="ej: 2" required="required"
+								min="0" />
+
+						</div>
+
+						<label for="diasxAnio" class="col-sm-2 col-form-label">Tipo
+							de a&ntilde;o:</label>
+						<div class="col-sm-3">
+							<select class="custom-select" th:field="*{diasxAnio}"
+								disabled="disabled">
+								<option value="360">Ordinario (360 d&iacute;as)</option>
+								<option value="365">Exacto (365 d&iacute;as)</option>
+							</select>
+						</div>
+					</div>
+					<br>
+					<div class="form-group row justify-content-center">
+						<label for="pFlotacion" class="col-sm-2 col-form-label">Fecha
+							de emision</label>
+						<div class="col-sm-3">
+							<input type="date" th:field="*{fecha}" class="form-control"
+								disabled="disabled" th:errorclass="'form-control alert-danger'" />
+							<small class="form-text text-danger"
+								th:if="${#fields.hasErrors('fecha')}" th:errors="*{fecha}"></small>
+						</div>
+
+						<label for="frecPago" class="col-sm-2 col-form-label">Frecuencia
+							de pago:</label>
+						<div class="col-sm-3">
+							<select class="custom-select" th:field="*{frecPago}"
+								disabled="disabled">
+								<option value="30">Mensual</option>
+								<option value="60">Bimestral</option>
+								<option value="90">Trimestral</option>
+								<option value="120">Cuatrimestral</option>
+								<option value="180">Semestral</option>
+								<option value="360">Anual</option>
+							</select>
+						</div>
+					</div>
+					<br>
+					<!-- tercera linea -->
+					<div class="form-group row justify-content-center">
+						<label for="diasxAnio" class="col-sm-2 col-form-label">Tipo
+							de tasa:</label>
+						<div class="col-sm-3">
+							<select class="custom-select" th:field="*{tipoTasa}"
+								disabled="disabled">
+								<option value="1">Efectiva</option>
+								<option value="2">Nominal</option>
+							</select>
+						</div>
+
+						<label for="plazoTasa" class="col-sm-2 col-form-label">Frecuencia
+							de tasa:</label>
+						<div class="col-sm-3">
+							<select class="custom-select" th:field="*{plazoTasa}"
+								disabled="disabled">
+								<option value="30">Mensual</option>
+								<option value="60">Bimestral</option>
+								<option value="90">Trimestral</option>
+								<option value="120">Cuatrimestral</option>
+								<option value="180">Semestral</option>
+								<option value="360">Anual</option>
+							</select>
+						</div>
+					</div>
+					<br>
+					<!-- cuarta linea -->
+					<div class="form-group row justify-content-center">
+						<label for="tasa" class="col-sm-2 col-form-label">Tasa de
+							inter&eacute;s: (%)</label>
+						<div class="col-sm-3">
+							<input type="number" th:field="*{tasa}" class="form-control"
+								disabled="disabled" min="0" placeholder="ej: 7.5"
+								step=".0000001" required="required" />
+						</div>
+
+						<label for="periodoCapit" class="col-sm-2 col-form-label">Periodo
+							de capitalizaci&oacute;n:</label>
+						<div class="col-sm-3">
+							<select class="custom-select" th:field="*{periodoCapit}"
+								disabled="disabled">
+								<option value="1">Diaria</option>
+								<option value="15">Quincenal</option>
+								<option value="30">Mensual</option>
+								<option value="60">Bimestral</option>
+								<option value="90">Trimestral</option>
+								<option value="120">Cuatrimestral</option>
+								<option value="180">Semestral</option>
+								<option value="360">Anual</option>
+							</select>
+						</div>
+					</div>
+					<!-- quinta linea -->
+					<div class="form-group row justify-content-center">
+						<label for="cok" class="col-sm-2 col-form-label">Tasa
+							anual de descuento: (%)</label>
+						<div class="col-sm-3">
+							<input type="number" th:field="*{cok}" class="form-control"
+								disabled="disabled" placeholder="ej: 3.0" step=".0000001"
+								required="required" min="0" />
+						</div>
+
+						<label for="inflacion" class="col-sm-2 col-form-label">Porc.
+							de inflaci&oacute;n: (%)</label>
+						<div class="col-sm-3">
+							<input type="number" th:field="*{inflacion}" class="form-control"
+								placeholder="ej: 30" step=".0000001" required="required" min="0" />
+						</div>
+					</div>
+
+					<!-- sexta linea -->
+					<div class="form-group row justify-content-center">
+						<label for="pPrima" class="col-sm-2 col-form-label">Porc.
+							de prima: (%)</label>
+						<div class="col-sm-3">
+							<input type="number" th:field="*{pPrima}" class="form-control"
+								disabled="disabled" min="0" placeholder="ej: 1.0"
+								step=".0000001" required="required" />
+						</div>
+
+						<label for="pEstructuracion" class="col-sm-2 col-form-label">Porc.
+							estructuraci&oacute;n:</label>
+						<div class="col-sm-3">
+							<input type="number" th:field="*{pEstructuracion}" min="0"
+								disabled="disabled" class="form-control" placeholder="ej: 1.0"
+								step=".0000001" required="required" />
+						</div>
+					</div>
+					<br>
+					<!-- setima linea -->
+					<div class="form-group row justify-content-center">
+						<label for="pColocacion" class="col-sm-2 col-form-label">Porc.
+							de colocaci&oacute;n:</label>
+						<div class="col-sm-3">
+							<input type="number" th:field="*{pColocacion}" min="0"
+								disabled="disabled" class="form-control" placeholder="ej: 0.25"
+								step=".0000001" required="required" />
+						</div>
+
+						<label for="pFlotacion" class="col-sm-2 col-form-label">Porc.
+							de flotaci&oacute;n: (%)</label>
+						<div class="col-sm-3">
+							<input type="number" th:field="*{pFlotacion}" min="0"
+								disabled="disabled" class="form-control" placeholder="ej: 0.45"
+								step=".01" required="required" />
+						</div>
+
+					</div>
+					<!-- octava linea -->
+					<br>
+					<div class="form-group row justify-content-center">
+						<label for="pCavali" class="col-sm-2 col-form-label">Porc.
+							de CAVALI: (%)</label>
+						<div class="col-sm-3">
+							<input type="number" th:field="*{pCavali}" class="form-control"
+								min="0" placeholder="ej: 0.5" step=".0000001"
+								disabled="disabled" required="required" />
+						</div>
+
+						<label for="blanco" class="col-sm-2 col-form-label"></label>
+						<div class="col-sm-3"></div>
+					</div>
+
+					<div class="form-group row" align="center">
+						<div class="col-sm-11">
+							<p></p>
+							<input type="submit" value="Guardar" class="btn btn-secondary"></input>
+							<a href="/clients/list" class="btn btn-danger">Cancelar</a>
+						</div>
+					</div>
+					<p th:text="${info}" class="form-text text-danger"></p>
+				</div>
+			</div>
+		</form>
+	</div>
+	<footer th:replace="layout :: footer"></footer>
+</body>
+</html>

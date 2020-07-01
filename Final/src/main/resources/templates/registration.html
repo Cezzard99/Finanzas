@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:fragment="head">
+<meta charset="UTF-8">
+<title>Registro de Cliente</title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="title" content="Bonos Provid" />
+<meta name="description"
+	content="Bonos Provid es una plataforma en la que empresas de sector privado o entidades financieras podrán 
+	generar bonos corporativos, así como también revisar el precio actual e indicadores de rentabilidad de estos." />
+<meta name="author" content="Bonos provid">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}" />
+</head>
+<body>
+
+	<!-- create navigation bar ( header) -->
+	<header th:replace="layout :: header"></header>
+	
+
+	<div class="container">
+		<h2>Registro</h2>
+		<h5>Nuevo usuario</h5>
+	</div>
+	<!-- Create HTML registration form -->
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-5 col-md-offset-3">
+
+				<!-- success message -->
+
+
+				<form th:action="@{/registration}" method="post"
+					th:object="${client}">
+
+					<div class="form-group">
+						<label class="control-label" for="empresa"> Empresa </label> <input
+							type="text" th:field="*{empresa}" class="form-control"
+							placeholder="ej: Banco de Cr&eacute;dito del Per&uacute;" th:errorclass="'form-control alert-danger'" />
+						<small class="form-text text-danger"
+							th:if="${#fields.hasErrors('empresa')}" th:errors="*{empresa}"></small>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label" for="razon"> Raz&oacute;n
+							Social </label> <input type="text" th:field="*{razon}"
+							class="form-control" placeholder="ej: Banco de Cr&eacute;dito del Per&uacute;"
+							th:errorclass="'form-control alert-danger'" /> <small
+							class="form-text text-danger"
+							th:if="${#fields.hasErrors('razon')}" th:errors="*{razon}"></small>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label" for="ruc"> RUC </label> <input
+							type="text" th:field="*{ruc}" class="form-control"
+							placeholder="ej: 20100047218" th:errorclass="'form-control alert-danger'" />
+						<small class="form-text text-danger"
+							th:if="${#fields.hasErrors('ruc')}" th:errors="*{ruc}"></small>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label" for="contra">
+							Contrase&ntilde;a </label> <input type="password" th:field="*{contra}"
+							class="form-control" th:errorclass="'form-control alert-danger'" />
+						<small class="form-text text-danger"
+							th:if="${#fields.hasErrors('contra')}" th:errors="*{contra}"></small>
+					</div>
+
+					<div class="form-group">
+						<div class="row justify-content-center">
+							<button type="submit" class="btn btn-danger">Registrar</button>
+
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="row justify-content-center">
+
+							<span>&iquest;Ya est&aacute;s registrado? <a href="/"
+								th:href="@{/login}">Ingresa aqu&iacute;</a></span>
+						</div>
+					</div>
+
+					<div th:if="${param.success}">
+						<div class="alert alert-info">Se ha registrado
+							satisfactoriamente</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

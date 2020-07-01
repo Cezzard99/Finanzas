@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:replace="layout :: head"></head>
+<body>
+	<header th:replace="layout :: header"></header>
+	<br>
+	<br>
+	<br>
+
+	<div class="container">
+		Welcome <span sec:authentication="principal.username"> User</span>
+	</div>
+
+	<footer th:fragment="footer" class="container">
+		<p class="text-dark">Derechos Reservados &copy; Bonos Provid 2020.</p>
+
+		<script th:src="@{/js/jquery.min.js}"></script>
+		<script th:src="@{/js/popper.min.js}"></script>
+		<script th:src="@{/js/bootstrap.min.js}"></script>
+		<script th:src="@{/js/jquery-ui.min.js}"></script>
+	</footer>
+
+</body>
+</html>

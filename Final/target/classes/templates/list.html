@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head">
+<meta charset="UTF-8">
+<title>Lista de Clientes</title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="title" content="Bonos Provid" />
+<meta name="description"
+	content="Bonos Provid es una plataforma en la que empresas de sector privado o entidades financieras podrán 
+	generar bonos corporativos, así como también revisar el precio actual e indicadores de rentabilidad de estos." />
+<meta name="author" content="Bonos provid">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}" />
+</head>
+<body>
+	<header th:replace="layout :: header"></header>
+
+	<div class="container">
+		<br>
+		<div class="card">
+			<div class="card-header text-white bg-dark text-center">Cliente</div>
+			<div class="card-body">
+
+				<div class="table-responsive">
+					<table class="table table-striped table-bordered">
+						<thead class="bg-primary text-white text-center">
+							<tr>
+								<th>Empresa</th>
+								<th>Raz&oacute;n</th>
+								<th>RUC</th>
+								<th sec:authorize="hasRole('ROLE_ADMIN')">Generar</th>
+								<th>Bonos</th>
+							</tr>
+						</thead>
+						<tbody th:if="${#lists.isEmpty(clients)}"
+							class="alert alert-info">
+							<tr>
+								<td th:text="'El emisor no cuenta con ningún cliente a su disposición'">
+								</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</tbody>
+						<tbody th:if="${not #lists.isEmpty(clients)}">
+							<tr th:each="client:${clients}">
+								<td class="text-center" th:text="${client.empresa}"></td>
+								<td class="text-center" th:text="${client.razon}"></td>
+								<td class="text-center" th:text="${client.ruc}"></td>
+								<td sec:authorize="hasRole('ROLE_ADMIN')" class="text-center"><a
+									th:href="@{'/bonos/nuevo/' + ${client.id}}"
+									class="btn btn-danger"> Bono</a> </td>
+								<td class="text-center"><a
+									th:href="@{'/clients/bonos/' + ${client.id}}"
+									class="btn btn-danger"> Mostrar</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<footer th:replace="layout :: footer"></footer>
+</body>
+</html>

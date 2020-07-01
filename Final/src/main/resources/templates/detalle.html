@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+<meta charset="UTF-8">
+<title>Detalle del Bono</title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="title" content="Bonos Provid" />
+<meta name="description"
+	content="Bonos Provid es una plataforma en la que empresas de sector privado o entidades financieras podrán 
+	generar bonos corporativos, así como también revisar el precio actual e indicadores de rentabilidad de estos." />
+<meta name="author" content="Bonos provid">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}" />
+</head>
+<body>
+	<header th:replace="layout :: header"></header>
+
+	<div class="container">
+		<br>
+		<div class="card">
+			<div class="card-header text-white bg-dark text-center">Datos
+				del Bono</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-borderless">
+						<tbody>
+							<tr th:each="bono :${bono}">
+								<td>M&eacute;todo:</td>
+								<td th:text="${bono.metodo()}">
+							</tr>
+							<tr th:each="bono :${bono}">
+								<td>Moneda:</td>
+								<td th:text="${bono.moneda()}">
+							</tr>
+							<tr th:each="bono :${bono}">
+								<td>Fecha:</td>
+								<td
+									th:text="${bono.fecha.getTime().getDate()}+'-'+${bono.fecha.getTime().getMonth()+1}+'-'+${bono.fecha.getTime().getYear()+1900}">
+							</tr>
+							<tr th:each="bono :${bono}">
+								<td>Tipo de Tasa:</td>
+								<td th:text="${bono.tipoTasa()}">
+							</tr>
+							<tr th:each="bono :${bono}">
+								<td>Frecuencia de Tasa:</td>
+								<td th:text="${bono.frecuenciaTasa()}">
+							</tr>
+							<tr th:each="bono :${bono}">
+								<td>Tasa de inter&eacute;s:</td>
+								<td th:text="${bono.tasa}+' %'">
+							</tr>
+							<tr th:each="bono :${bono}">
+								<td>Tasa anual de descuento:</td>
+								<td th:text="${bono.cok}+' %'">
+							</tr>
+							<tr th:each="bono :${bono}">
+								<td>Inflaci&oacute;n anual:</td>
+								<td th:text="${bono.inflacion}+' %'">
+							</tr>
+							<tr th:each="bono :${bono}">
+								<td>Valor Nominal:</td>
+								<td th:text="${bono.simbolo()}+' '+${bono.vNominal}">
+							</tr>
+							<tr th:each="bono :${bono}">
+								<td>Valor Comercial:</td>
+								<td th:text="${bono.simbolo()}+' '+${bono.vComercial}">
+							</tr>
+							<tr th:each="bono :${bono}">
+								<td>N&uacute;mero de A&ntilde;os:</td>
+								<td th:text="${bono.nAnio}">
+							</tr>
+							<tr th:each="bono :${bono}">
+								<td>Frecuencia de Pago:</td>
+								<td th:text="${bono.frecuenciaPago()}">
+							</tr>
+							<tr th:each="bono :${bono}">
+								<td>D&iacute;as por a&ntilde;o:</td>
+								<td th:text="${bono.diasxAnio}">
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+
+			</div>
+		</div>
+		<br> <br>
+		<div class="card">
+			<div class="card-header text-white bg-dark text-center">Datos
+				de los Gastos Iniciales</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-borderless">
+						<tbody>
+							<tr th:each="bono :${bono}">
+								<td>Porcentaje de Prima:</td>
+								<td th:text="${bono.pPrima}+'000000 %'">
+							</tr>
+							<tr th:each="bono :${bono}">
+								<td>Porcentaje de Estructuraci&oacute;n:</td>
+								<td th:text="${bono.pEstructuracion}+'000000 %'">
+							</tr>
+							<tr th:each="bono :${bono}">
+								<td>Porcentaje de Colocaci&oacute;n:</td>
+								<td th:text="${bono.pColocacion}+'000000 %'">
+							</tr>
+							<tr th:each="bono :${bono}">
+								<td>Porcentaje de Flotaci&oacute;n:</td>
+								<td th:text="${bono.pFlotacion}+'00000 %'">
+							</tr>
+							<tr th:each="bono :${bono}">
+								<td>Porcentaje de CAVALI:</td>
+								<td th:text="${bono.pCavali}+'000000 %'">
+							</tr>
+
+						</tbody>
+					</table>
+
+				</div>
+
+			</div>
+		</div>
+		<br> <br>
+		<div class="card">
+			<div class="card-header text-white bg-dark text-center">Resultados
+				de la Estructuraci&oacute;n</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-borderless">
+						<tbody>
+							<tr th:each="bono :${bono}">
+								<td>Frecuencia de Pago:</td>
+								<td th:text="${bono.frecPago}+' d&iacute;as'">
+							</tr>
+							<tr th:each="bono :${bono}"
+								th:if="${not #lists.isEmpty(bono.periodoCapit)}">
+								<td>D&iacute;as de capitalizaci&oacute;n:</td>
+								<td th:text="${bono.periodoCapit}+' d&iacute;a(s)'">
+							</tr>
+							<tr th:each="bono :${bono}">
+								<td>N&uacute;mero de periodos por a&ntilde;o:</td>
+								<td th:text="${bono.periodosxAnio()}+' periodos'">
+							</tr>
+							<tr th:each="bono :${bono}">
+								<td>N&uacute;mero de periodos totales:</td>
+								<td th:text="${bono.periodosTotales()}+' periodos'">
+							</tr>
+							<tr th:each="bono :${bono}">
+								<td>Tasa Efectiva Anual:</td>
+								<td th:text="${bono.TEA()}+' %'">
+							</tr>
+							<tr th:each="bono :${bono}">
+								<td>Tasa Efectiva del Periodo:</td>
+								<td th:text="${bono.TEP()}+' %'">
+							</tr>
+							<tr th:each="bono :${bono}">
+								<td>COK del periodo:</td>
+								<td th:text="${bono.COKP()}+' %'">
+							</tr>
+							<tr th:each="bono :${bono}">
+								<td>Inflaci&oacute;n del periodo:</td>
+								<td th:text="${bono.inflacionP()}+' %'">
+							</tr>
+							<tr th:each="bono :${bono}">
+								<td>Costos Iniciales del Emisor:</td>
+								<td th:text="${bono.simbolo()}+' '+${bono.costosEmisor()}">
+							</tr>
+							<tr th:each="bono :${bono}">
+								<td>Costos Iniciales del Bonista:</td>
+								<td th:text="${bono.simbolo()}+' '+${bono.costosBonista()}">
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+
+			</div>
+		</div>
+		<br> <br>
+		<div class="card" sec:authorize="hasRole('ROLE_USER')">
+			<div class="card-header text-white bg-dark text-center">Resultados
+				del Flujo de Caja del Bonista</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-borderless">
+						<tbody>
+							<tr th:each="flujo :${bono.mostrarBonista()}">
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td th:text="${flujo}">
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="card" sec:authorize="hasRole('ROLE_ADMIN')">
+			<div class="card-header text-white bg-dark text-center">Resultados
+				del Flujo de Caja del Emisor</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-borderless">
+						<tbody>
+							<tr th:each="flujo :${bono.mostrarEmisor()}">
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td th:text="${flujo}">
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</div>
+		<br>
+		<div class="card" sec:authorize="hasRole('ROLE_USER')">
+			<div class="card-header text-white bg-dark text-center">Indicadores
+				de Rentabilidad del Bonista</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-borderless">
+						<tbody>
+							<tr th:each="bono :${bono}">
+								<td>TIR del Bonista:</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td th:text="${bono.detalle.tirBonista}+' %'">
+							</tr>
+							<tr th:each="bono :${bono}">
+								<td>TREA del Bonista:</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td th:text="${bono.detalle.trea}+' %'">
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</div>
+		<br>
+		<div class="card" sec:authorize="hasRole('ROLE_ADMIN')">
+			<div class="card-header text-white bg-dark text-center">Indicadores
+				de Rentabilidad del Emisor</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-borderless">
+						<tbody>
+							<tr th:each="bono :${bono}">
+								<td>TIR del Emisor:</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td th:text="${bono.detalle.tirEmisor}+' %'">
+							</tr>
+							<tr th:each="bono :${bono}">
+								<td>TCEA del Emisor:</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td th:text="${bono.detalle.tcea}+' %'">
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</div>
+		<br> <br>
+		<div class="card">
+			<div class="card-header text-white bg-dark text-center">Precio
+				Actual del Bono</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-borderless">
+						<tbody>
+							<tr th:each="bono :${bono}">
+								<td>Precio Actual del Bono:</td>
+								<td></td>
+								<td th:text="${bono.simbolo()}+' '+${bono.precio()}">
+							</tr>
+							<tr th:each="bono :${bono}">
+								<td>Precio Actual en Soles:</td>
+								<td></td>
+								<td th:text="'S/. '+${bono.detalle.valorSoles}">
+							</tr>
+							<tr th:each="bono :${bono}">
+								<td>Utilidad/P&eacute;rdida:</td>
+								<td></td>
+								<td th:text="${bono.simbolo()}+' '+${bono.utilidad()}">
+							</tr>
+							<tr th:each="bono :${bono}">
+								<td>Utilidad/P&eacute;rdida en Soles:</td>
+								<td></td>
+								<td th:text="'S/. '+${bono.utilidadSoles()}">
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</div>
+		<div class="form-group row" align="center">
+			<div class="col-sm-11">
+				<p></p>
+				<a th:href="@{'/clients/bonos/' + ${bono.clientId.id}}"
+					class="btn btn-danger">Regresar</a>
+			</div>
+		</div>
+	</div>
+	<footer th:replace="layout :: footer"></footer>
+</body>
+</html>
