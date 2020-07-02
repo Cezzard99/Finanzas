@@ -17,7 +17,31 @@
 <body>
 
 	<!-- create navigation bar ( header) -->
-	<header th:replace="layout :: header"></header>
+	<header th:fragment="header">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+
+			<div class="navbar-collapse collapse justify-content-center">
+				<ul class="navbar-nav">
+					<li class="nav-item active"><a class="navbar-brand" href="#"
+						th:href="@{/}">BONOS PROVID</a></li>
+				</ul>
+			</div>
+		
+			<!-- 			<div id="navbar" class="collapse navbar-collapse"> -->
+			<!-- 				<ul class="nav navbar-nav"> -->
+			<!-- 					<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li> -->
+			<!-- 				</ul> -->
+			<!-- 			</div> -->
+		</nav>
+
+		<div class="alert alert-success" th:if="${success != null}"
+			th:text="${success}"></div>
+		<div class="alert alert-danger" th:if="${error != null}"
+			th:text="${error}"></div>
+		<div class="alert alert-info" th:if="${info != null}"
+			th:text="${info}"></div>
+		<br> <br> <br>
+	</header>
 	
 
 	<div class="container">

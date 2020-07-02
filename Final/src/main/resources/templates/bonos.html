@@ -29,6 +29,7 @@
 							<tr>
 								<th>Cliente</th>
 								<th>RUC</th>
+								<th>Fecha de emisi&oacute;n</th>
 								<th>TEA</th>
 								<th>TEP</th>
 								<th>Precio</th>
@@ -47,12 +48,15 @@
 								<td></td>
 								<td></td>
 								<td></td>
+								<td></td>
 							</tr>
 						</tbody>
 						<tbody th:if="${not #lists.isEmpty(client.bonos)}">
 							<tr th:each="bono:${client.bonos}" class="text-center">
 								<td th:text="${bono.clientId.empresa}"></td>
 								<td th:text="${bono.clientId.ruc}"></td>
+								<td
+									th:text="${bono.fecha.getTime().getDate()}+'-'+${bono.fecha.getTime().getMonth()+1}+'-'+${bono.fecha.getTime().getYear()+1900}">
 								<td th:text="${bono.TEA()}+'%'"></td>
 								<td th:text="${bono.TEP()}+'%'"></td>
 								<td th:text="${bono.simbolo()}+' '+${bono.precio()}"></td>
